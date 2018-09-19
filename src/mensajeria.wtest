@@ -1,4 +1,8 @@
 import mensajeros.*
+import mensajeria.*
+import transportes.*
+import destinos.*
+
 
 test "La mensajeria tiene a neo como empleado si lo agregarmos" {
 	mensajeria.contratar(neo)
@@ -11,3 +15,46 @@ test "Si neo es empleado, Hay un mensajero que puede enviar el paquete" {
 	paquete.destino(matrix)
 	assert.that(mensajeria.mensajeros().contains(neo))
 }
+
+test "la mensajeria contrato a roberto"{
+	mensajeria.contratar(roberto)
+	assert.that(mensajeria.mensajeros().contains(roberto))
+}
+
+test "la mensajeria despidio a neo"{
+	mensajeria.contratar(neo)
+	mensajeria.despedir(neo)
+	assert.equals(mensajeria.mensajeros().contains(neo), false)
+}
+
+test "la mensajeria despidio a todos"{
+	assert.that(mensajeria.mensajeros().isEmpty())
+}
+
+test "evaluar si la mensajeria es grande"{
+	mensajeria.contratar(neo)
+	mensajeria.contratar(roberto)
+	mensajeria.contratar(chuckNorris)
+	assert.that(mensajeria.esMensajeriaGrande())
+}
+
+test "El primer empleado es apto para entregar"{
+	mensajeria.contratar(neo)
+	mensajeria.contratar(chuckNorris)
+	neo.tieneCredito(true)
+	assert.that(mensajeria.primerMensajeroPuedeEntregar(matrix))
+}
+
+test "comprobar el peso del ultimo empleado"{
+	mensajeria.contratar(neo)
+	mensajeria.contratar(roberto)
+	mensajeria.contratar(chuckNorris)
+	
+	assert.equals(mensajeria.pesoUltimoMensajero(), 900)
+}
+
+
+
+
+
+
